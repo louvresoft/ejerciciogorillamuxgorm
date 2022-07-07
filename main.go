@@ -25,7 +25,7 @@ func main() {
 	r.HandleFunc("/users", routes.GetUsersHandler).Methods("GET")
 	r.HandleFunc("/users/{id}", routes.GetUserHandler).Methods("GET")
 	r.HandleFunc("/users", routes.PostUserHandler).Methods("POST")
-	r.HandleFunc("/users", routes.DeleteUserHandler).Methods("DELETE")
+	r.HandleFunc("/users/{id}", routes.DeleteUserHandler).Methods("DELETE")
 
 	err = http.ListenAndServe(":3000", r)
 	if err != nil {

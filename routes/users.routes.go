@@ -2,6 +2,7 @@ package routes
 
 import (
 	"encoding/json"
+	"github.com/gorilla/mux"
 	"github.com/louvresoft/go-gorm-gorilla-mux/db"
 	"github.com/louvresoft/go-gorm-gorilla-mux/models"
 	"net/http"
@@ -14,7 +15,14 @@ func GetUsersHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetUserHandler(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("get user"))
+	var user models.User
+	params := mux.Vars(r)
+	db.DB.Find(&user, params["id"])
+	if user.ID == 0 {
+		w.WriteHeader(http.StatusNotFound)
+		w.Write([]byte("Usuario no encontrado"))
+	}
+	json.NewEncoder(w).Encode(&user)
 }
 
 func PostUserHandler(w http.ResponseWriter, r *http.Request) {
@@ -30,5 +38,15 @@ func PostUserHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func DeleteUserHandler(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("delete user"))
+	var user models.User
+	params := mux.Vars(r)
+	db.DB.Find(&user, params["id"])
+	if user.ID == 0 {
+		w.WriteHeader(http.StatusNotFound)
+		w.Write([]byte("Usuario no encontrado"))
+		return
+	}
+	db.DB.Delete(&user)
+	w.WriteHeader(http.StatusOK)
+
 }
