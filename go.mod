@@ -1,4 +1,4 @@
-module gorm-gorilla-mux
+module github.com/louvresoft/go-gorm-gorilla-mux
 
 go 1.17
 

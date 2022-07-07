@@ -2,15 +2,12 @@ package main
 
 import (
 	"github.com/gorilla/mux"
+	"github.com/louvresoft/go-gorm-gorilla-mux/routes"
 	"net/http"
 )
 
-func HomeHAndler(w http.ResponseWriter, request *http.Request) {
-	w.Write([]byte("Hola mundo2"))
-}
-
 func main() {
 	r := mux.NewRouter()
-	r.HandleFunc("/", HomeHAndler)
+	r.HandleFunc("/", routes.HomeHAndler)
 	http.ListenAndServe(":3000", r)
 }
