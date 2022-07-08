@@ -46,7 +46,8 @@ func DeleteUserHandler(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Usuario no encontrado"))
 		return
 	}
-	db.DB.Delete(&user)
+	//db.DB.Unscoped().Delete(&user) // Elimina definitivamente el usuario
+	db.DB.Delete(&user) // elimina usuario agregandole una fecha al eliminated at
 	w.WriteHeader(http.StatusOK)
 
 }

@@ -27,6 +27,12 @@ func main() {
 	r.HandleFunc("/users", routes.PostUserHandler).Methods("POST")
 	r.HandleFunc("/users/{id}", routes.DeleteUserHandler).Methods("DELETE")
 
+	//Task routes
+	r.HandleFunc("/tasks", routes.GetTasksHandler).Methods("GET")
+	r.HandleFunc("/task/{id}", routes.GetTaskHandler).Methods("GET")
+	r.HandleFunc("/task", routes.CreateTaskHandler).Methods("POST")
+	r.HandleFunc("/tasks/{id}", routes.DeleteTaskHandler).Methods("DELETE")
+
 	err = http.ListenAndServe(":3000", r)
 	if err != nil {
 		return
